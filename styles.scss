@@ -1,0 +1,175 @@
+@import "_global";
+@import "_variables";
+@import "_mixins";
+
+.light {
+  background-color: $veryLightGrayishBlue;
+}
+
+.dark {
+  background-color: $veryDarkBlue;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  .background-img {
+    width: 100%;
+  }
+
+  .container {
+    width: 500px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .text-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $veryLightGray;
+
+      .header {
+        font-size: 36px;
+        letter-spacing: 18px;
+      }
+    }
+
+    .input-container {
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      gap: 18px;
+      border-radius: 5px;
+
+      &-light {
+        background-color: $veryLightGray;
+      }
+
+      &-dark {
+        background-color: $veryDarkDesaturatedBlue;
+      }
+
+      .input {
+        font-size: 18px;
+        border: none;
+
+        &:focus {
+          outline: none;
+        }
+
+        &-light {
+          color: $veryDarkGrayishBlue;
+          background-color: $veryLightGray;
+        }
+
+        &-dark {
+          color: $lightGrayishBlue;
+          background-color: $veryDarkDesaturatedBlue;
+        }
+      }
+    }
+
+    .task-container {
+      margin-top: 18px;
+      border-radius: 5px;
+      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+      &-light {
+        background-color: $veryLightGray;
+      }
+
+      &-dark {
+        background-color: $veryDarkDesaturatedBlue;
+      }
+
+      .task-list {
+        .task-item {
+          padding: 24px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          &-light {
+            border-bottom: 1px solid $veryLightGrayishBlue;
+          }
+
+          &-dark {
+            border-bottom: 1px solid $darkGrayishBlue;
+          }
+
+          .task-content {
+            display: flex;
+            gap: 18px;
+
+            .task-text {
+              display: flex;
+              align-items: center;
+
+              &-light {
+                color: $veryDarkGrayishBlue;
+              }
+
+              &-dark {
+                color: $lightGrayishBlue;
+              }
+            }
+          }
+
+          .delete {
+            position: relative;
+            width: 24px;
+            height: 24px;
+
+            &__span {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              width: 24px;
+              height: 1px;
+              transform: translate(-50%, -50%) rotate(45deg);
+
+              &:first-of-type {
+                transform: translate(-50%, -50%) rotate(-45deg);
+              }
+            }
+
+            &__light {
+              background-color: $veryDarkGrayishBlue;
+            }
+
+            &__dark {
+              background-color: $darkGrayishBlue;
+            }
+          }
+        }
+      }
+
+      .footer {
+        padding: 18px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        font-size: 14px;
+
+        &-text {
+          color: $darkGrayishBlue;
+        }
+
+        .task-state {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 14px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

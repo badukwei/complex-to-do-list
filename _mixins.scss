@@ -1,0 +1,3 @@
+@mixin mode-style($property, $light-value) {
+  #{$property}: $light-value;
+}

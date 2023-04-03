@@ -1,0 +1,71 @@
+@import "_variables";
+@import "_mixins";
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  font-family: "Josefin Sans";
+  font-size: 18px;
+}
+
+.body.light {
+  @include mode-style("background-color", $veryLightGrayishBlue);
+}
+
+.body.dark {
+  @include mode-style("background-color", $veryDarkBlue);
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+  
+  svg {
+    z-index: 2;
+    opacity: 0;
+  }
+
+  .show {
+    opacity: 1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: $checkBackground;
+    z-index: 0;
+    border-radius: 100%;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.button.on {
+  background: $checkBackground;
+}
