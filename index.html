@@ -24,43 +24,24 @@
         <img
           src="./images/icon-light.svg"
           alt="dark-light"
-          class="change-mode-button"
+          class="change-mode-button hover active"
         />
       </div>
       <div class="input-container input-container-light">
         <div class="button"></div>
-        <input class="input input-light" placeholder="Add your task" />
+        <input class="input input-light hover" placeholder="Add your task" />
       </div>
       <div class="task-container task-container-light">
         <div class="task-list">
-          <div class="task-item task-item-light">
-            <div class="task-content">
-              <div class="button">
-                <svg class="check-img show" xmlns="http://www.w3.org/2000/svg" width="11" height="9">
-                  <path
-                    fill="none"
-                    stroke="#FFF"
-                    stroke-width="2"
-                    d="M1 4.304L3.696 7l6-6"
-                  />
-                </svg>
-              </div>
-              <span class="task-text task-text-light">Test</span>
-            </div>
-            <div class="delete">
-              <span class="delete__span delete__light"></span
-              ><span class="delete__span delete__light"></span>
-            </div>
-          </div>
         </div>
         <div class="footer">
-          <span class="footer-text text-amount">1 items left</span>
+          <span class="footer-text text-amount"></span>
           <div class="task-state">
-            <span class="footer-text">All</span>
-            <span class="footer-text">Active</span>
-            <span class="footer-text">Complete</span>
+            <span class="footer-text bold filter-all on hover active">All</span>
+            <span class="footer-text bold filter-active hover active">Active</span>
+            <span class="footer-text bold filter-complete hover active">Complete</span>
           </div>
-          <span class="footer-text">Clear Complete</span>
+          <span class="footer-text clear hover active">Clear Complete</span>
         </div>
       </div>
     </div>

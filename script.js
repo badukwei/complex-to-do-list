@@ -4,6 +4,10 @@ const body = document.querySelector(".body");
 const input = document.querySelector(".input");
 const taskList = document.querySelector(".task-list");
 const taskAmountText = document.querySelector(".text-amount");
+const allFilterButton = document.querySelector(".filter-all");
+const activeFilterButton = document.querySelector(".filter-active");
+const completeFilterButton = document.querySelector(".filter-complete");
+const clearButton = document.querySelector(".clear");
 
 // Define the elements and their attributes for changing the mode
 const elements = [
@@ -22,7 +26,7 @@ const elements = [
     attribute: "class",
     template: "input-container input-container-{mode}",
   },
-  { selector: ".input", attribute: "class", template: "input input-{mode}" },
+  { selector: ".input", attribute: "class", template: "input input-{mode} hover" },
   {
     selector: ".task-container",
     attribute: "class",
@@ -134,7 +138,8 @@ function createElement(tag, className, text, children = [], html = "") {
  * Display the number of tasks remaining.
  */
 function displayTaskAmount() {
-  let taskAmount = tasks.length;
+  const ActiveTask = tasks.filter((task) => task.isActive);
+  const taskAmount = ActiveTask.length;
   taskAmountText.textContent = `${taskAmount} item${
     taskAmount > 1 ? "s" : ""
   } left`;
@@ -158,15 +163,17 @@ function deleteTaskItem(taskItem) {
  * @returns {HTMLElement} The created task item DOM element.
  */
 function createTaskItem(task) {
-  const { id, text: taskText } = task;
+  const { id, text: taskText, isActive } = task;
   const taskItem = createElement("div", "task-item task-item-light", "", [
-    createElement("div", "task-content", "", [
+    createElement("div", "task-content hover active", "", [
       createElement(
         "div",
-        "button",
+        `${isActive ? "button" : "button on"}`,
         "",
         [],
-        `<svg class="check-img" xmlns="http://www.w3.org/2000/svg" width="11" height="9">
+        `<svg class="${
+          isActive ? "check-img" : "check-img show"
+        }" xmlns="http://www.w3.org/2000/svg" width="11" height="9">
           <path
             fill="none"
             stroke="#FFF"
@@ -175,20 +182,41 @@ function createTaskItem(task) {
           />
         </svg>`
       ),
-      createElement("span", "task-text task-text-light", taskText),
+      createElement(
+        "span",
+        `${
+          isActive
+            ? "task-text task-text-light"
+            : "task-text task-text-light on"
+        }`,
+        taskText
+      ),
     ]),
-    createElement("div", "delete", "", [
+    createElement("div", "delete hover active", "", [
       createElement("span", "delete__span delete__light", ""),
       createElement("span", "delete__span delete__light", ""),
     ]),
   ]);
 
+  const taskContent = taskItem.querySelector(".task-content");
   const taskButton = taskItem.querySelector(".button");
   const checkImg = taskItem.querySelector(".check-img");
+  const taskTextSpan = taskItem.querySelector(".task-text");
   // Event listener for checking the task when click the toggleButton
-  taskButton.addEventListener("click", () => {
+  taskContent.addEventListener("click", () => {
     task.isActive = !task.isActive;
-    checkImg.setAttribute("class", task.isActive ? "check-img" : "check-img show")
+    taskButton.setAttribute("class", task.isActive ? "button" : "button on");
+    checkImg.setAttribute(
+      "class",
+      task.isActive ? "check-img" : "check-img show"
+    );
+    taskTextSpan.setAttribute(
+      "class",
+      task.isActive
+        ? "task-text task-text-light"
+        : "task-text task-text-light on"
+    );
+    displayTaskAmount();
   });
 
   const deleteButton = taskItem.querySelector(".delete");
@@ -197,7 +225,7 @@ function createTaskItem(task) {
     deleteTaskItem(taskItem);
     tasks = tasks.filter((item) => item.id !== id);
     displayTaskAmount();
-  });
+  });  
 
   return taskItem;
 }
@@ -228,3 +256,55 @@ document.addEventListener("DOMContentLoaded", () => {
     taskList.appendChild(taskItem);
   });
 });
+
+function displayFilteredTasks(condition) {
+  taskList.innerHTML = ""; // Clear the task list
+
+  const filteredTasks = tasks.filter(condition);
+
+  filteredTasks.forEach((task) => {
+    const taskItem = createTaskItem(task);
+    taskList.appendChild(taskItem);
+  });
+}
+
+function updateSelectedButton(selectedButton) {
+  // Remove the 'on' class from all buttons
+  allFilterButton.classList.remove("on");
+  activeFilterButton.classList.remove("on");
+  completeFilterButton.classList.remove("on");
+
+  // Add the 'on' class to the selected button
+  selectedButton.classList.add("on");
+}
+
+function clearCompleteTask() {
+  taskList.innerHTML = "";
+  tasks = tasks.filter((task) => task.isActive);
+  console.log(tasks);
+  tasks.forEach((task) => {
+    const taskItem = createTaskItem(task);
+    taskList.appendChild(taskItem);
+  });
+}
+
+activeFilterButton.addEventListener("click", () => {
+  displayFilteredTasks((task) => task.isActive);
+  updateSelectedButton(activeFilterButton);
+});
+
+completeFilterButton.addEventListener("click", () => {
+  displayFilteredTasks((task) => !task.isActive);
+  updateSelectedButton(completeFilterButton);
+});
+
+allFilterButton.addEventListener("click", () => {
+  displayFilteredTasks(() => true);
+  updateSelectedButton(allFilterButton);
+});
+
+clearButton.addEventListener("click", () => {
+  clearCompleteTask();
+  displayTaskAmount();
+});
+

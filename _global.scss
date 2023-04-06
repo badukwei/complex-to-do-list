@@ -33,39 +33,37 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid $lightGrayishBlue;
+  background-color: transparent; /* Add this line to set the initial background color */
+  transition: background-color 0.4s ease-in-out; /* Add this line for a smooth background-color transition */
   
   svg {
-    z-index: 2;
     opacity: 0;
   }
 
   .show {
     opacity: 1;
   }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: $checkBackground;
-    z-index: 0;
-    border-radius: 100%;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover {
-    &::before {
-      opacity: 1;
-    }
-  }
 }
 
 .button.on {
   background: $checkBackground;
+  border: none;
 }
+
+.bold {
+  font-weight: 700;
+}
+
+.hover {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.active {
+  &:active {
+    transform: scale(0.9);
+  }
+}
+

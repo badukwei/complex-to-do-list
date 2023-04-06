@@ -117,12 +117,23 @@ body {
                 color: $lightGrayishBlue;
               }
             }
+
+            .task-text.on {
+              color: $lightGrayishBlue;
+              text-decoration:line-through;
+            }
           }
 
           .delete {
             position: relative;
             width: 24px;
             height: 24px;
+            opacity: 0.6;
+
+            &:hover {
+              opacity: 1;
+              @include button-animation(opacity);
+            }
 
             &__span {
               position: absolute;
@@ -160,6 +171,17 @@ body {
           color: $darkGrayishBlue;
         }
 
+        .clear {
+          &:hover {
+            color: $veryDarkGrayishBlue;
+            @include button-animation(color);
+          }
+        }
+
+        .on {
+          color: $brightBlue;
+        }
+
         .task-state {
           display: flex;
           justify-content: center;
@@ -173,3 +195,5 @@ body {
     }
   }
 }
+
+// hover don't work and button hover border 
