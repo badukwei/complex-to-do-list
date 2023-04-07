@@ -71,7 +71,6 @@ body {
       $checkBackground border-box;
     border-radius: 100%;
     border: 1px solid transparent;
-    @include button-animation(border);
   }
 }
 
@@ -81,6 +80,5 @@ body {
       $checkBackground border-box;
     border-radius: 100%;
     border: 1px solid transparent;
-    @include button-animation(border);
   }
 }

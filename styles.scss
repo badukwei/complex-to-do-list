@@ -118,8 +118,13 @@ body {
               }
             }
 
-            .task-text.on {
+            .task-text-light.on {
               color: $lightGrayishBlue;
+              text-decoration:line-through;
+            }
+
+            .task-text-dark.on {
+              color: $darkGrayishBlue;
               text-decoration:line-through;
             }
           }
@@ -171,9 +176,16 @@ body {
           color: $darkGrayishBlue;
         }
 
-        .off {
+        .off-light {
           &:hover {
             color: $veryDarkGrayishBlue;
+            @include button-animation(color);
+          }
+        }
+
+        .off-dark {
+          &:hover {
+            color: $lightGrayishBlue;
             @include button-animation(color);
           }
         }

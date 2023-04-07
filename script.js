@@ -26,7 +26,11 @@ const elements = [
     attribute: "class",
     template: "input-container input-container-{mode}",
   },
-  { selector: ".input", attribute: "class", template: "input input-{mode} hover" },
+  {
+    selector: ".input",
+    attribute: "class",
+    template: "input input-{mode} hover",
+  },
   {
     selector: ".task-container",
     attribute: "class",
@@ -54,6 +58,12 @@ const elements = [
     selector: ".delete__span",
     attribute: "class",
     template: "delete__span delete__{mode}",
+    isNodeList: true,
+  },
+  {
+    selector: ".button",
+    attribute: "class",
+    template: "button button-{mode}",
     isNodeList: true,
   },
 ];
@@ -95,10 +105,32 @@ function changeMode() {
 
     if (isNodeList) {
       const nodeList = document.querySelectorAll(selector);
-      nodeList.forEach((e) => e.setAttribute(attribute, value));
+      nodeList.forEach((e) => {
+        if (e.classList.contains("on")) {
+          e.setAttribute(attribute, `${value} on`);
+        } else {
+          e.setAttribute(attribute, value);
+        }
+      });
     } else {
       const el = document.querySelector(selector);
       el.setAttribute(attribute, value);
+    }
+  });
+
+  const filterButtons = [
+    allFilterButton,
+    activeFilterButton,
+    completeFilterButton,
+    clearButton,
+  ];
+  filterButtons.forEach((button) => {
+    if (button.classList.contains("on")) {
+      button.classList.remove("off-light", "off-dark");
+    } else {
+      const offClass = isLightMode ? "off-light" : "off-dark";
+      button.classList.remove("off-light", "off-dark");
+      button.classList.add(offClass);
     }
   });
 }
@@ -212,7 +244,11 @@ function createTaskItem(task) {
   // Event listener for checking the task when click the toggleButton
   taskContent.addEventListener("click", () => {
     task.isActive = !task.isActive;
-    taskButton.setAttribute("class", task.isActive ? "button" : "button on");
+    const mode = isLightMode ? "light" : "dark";
+    taskButton.setAttribute(
+      "class",
+      task.isActive ? `button button-${mode}` : `button button-${mode} on`
+    );
     checkImg.setAttribute(
       "class",
       task.isActive ? "check-img" : "check-img show"
@@ -220,8 +256,8 @@ function createTaskItem(task) {
     taskTextSpan.setAttribute(
       "class",
       task.isActive
-        ? "task-text task-text-light"
-        : "task-text task-text-light on"
+        ? `task-text task-text-${mode}`
+        : `task-text task-text-${mode} on`
     );
     displayTaskAmount();
   });
@@ -232,7 +268,7 @@ function createTaskItem(task) {
     deleteTaskItem(taskItem);
     tasks = tasks.filter((item) => item.id !== id);
     displayTaskAmount();
-  });  
+  });
 
   return taskItem;
 }
@@ -276,16 +312,17 @@ function displayFilteredTasks(condition) {
 }
 
 function updateSelectedButton(selectedButton) {
-  // Remove the 'on' and add off class from all buttons
+  const offClass = isLightMode ? "off-light" : "off-dark";
+
   allFilterButton.classList.remove("on");
-  allFilterButton.classList.add("off");
+  allFilterButton.classList.add(offClass);
   activeFilterButton.classList.remove("on");
-  activeFilterButton.classList.add("off");
+  activeFilterButton.classList.add(offClass);
   completeFilterButton.classList.remove("on");
-  completeFilterButton.classList.add("off");
-  // Add the 'on' class to the selected button
+  completeFilterButton.classList.add(offClass);
+
+  selectedButton.classList.remove(offClass);
   selectedButton.classList.add("on");
-  selectedButton.classList.remove("off");
 }
 
 function clearCompleteTask() {
@@ -317,4 +354,3 @@ clearButton.addEventListener("click", () => {
   clearCompleteTask();
   displayTaskAmount();
 });
-
