@@ -23,7 +23,7 @@ body {
   background-color: hsl(235, 21%, 11%);
 }
 
-.button {
+.button, .input-button {
   width: 24px;
   height: 24px;
   display: flex;
@@ -31,13 +31,11 @@ body {
   align-items: center;
   border-radius: 100%;
   border: 1px solid hsl(234, 39%, 85%);
-  background-color: transparent; /* Add this line to set the initial background color */
-  transition: background-color 0.4s ease-in-out; /* Add this line for a smooth background-color transition */
 }
-.button svg {
+.button svg, .input-button svg {
   opacity: 0;
 }
-.button .show {
+.button .show, .input-button .show {
   opacity: 1;
 }
 
@@ -56,6 +54,20 @@ body {
 
 .active:active {
   transform: scale(0.9);
+}
+
+.button-dark:hover {
+  background: linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%)) padding-box, linear-gradient(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+  border-radius: 100%;
+  border: 1px solid transparent;
+  transition: border 0.4s ease-in-out;
+}
+
+.button-light:hover {
+  background: linear-gradient(hsl(0, 0%, 98%), hsl(0, 0%, 98%)) padding-box, linear-gradient(to bottom right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+  border-radius: 100%;
+  border: 1px solid transparent;
+  transition: border 0.4s ease-in-out;
 }
 
 .light {
@@ -197,6 +209,10 @@ body .container .task-container .footer {
 }
 body .container .task-container .footer-text {
   color: hsl(234, 11%, 52%);
+}
+body .container .task-container .footer .off:hover {
+  color: hsl(237, 14%, 26%);
+  transition: color 0.4s ease-in-out;
 }
 body .container .task-container .footer .on {
   color: hsl(220, 98%, 61%);

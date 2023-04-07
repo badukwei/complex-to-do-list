@@ -33,6 +33,12 @@ const elements = [
     template: "task-container task-container-{mode}",
   },
   {
+    selector: ".button",
+    attribute: "class",
+    template: "button button-{mode}",
+    isNodeList: true,
+  },
+  {
     selector: ".task-item",
     attribute: "class",
     template: "task-item task-item-{mode}",
@@ -85,13 +91,14 @@ function changeMode() {
   body.setAttribute("class", `body ${mode}`);
 
   elements.forEach(({ selector, attribute, template, isNodeList }) => {
-    const el = document.querySelectorAll(selector);
     const value = template.replace("{mode}", mode);
 
     if (isNodeList) {
-      el.forEach((e) => e.setAttribute(attribute, value));
+      const nodeList = document.querySelectorAll(selector);
+      nodeList.forEach((e) => e.setAttribute(attribute, value));
     } else {
-      el[0].setAttribute(attribute, value);
+      const el = document.querySelector(selector);
+      el.setAttribute(attribute, value);
     }
   });
 }
@@ -168,7 +175,7 @@ function createTaskItem(task) {
     createElement("div", "task-content hover active", "", [
       createElement(
         "div",
-        `${isActive ? "button" : "button on"}`,
+        `${isActive ? "button button-light" : "button button-light on"}`,
         "",
         [],
         `<svg class="${
@@ -269,13 +276,16 @@ function displayFilteredTasks(condition) {
 }
 
 function updateSelectedButton(selectedButton) {
-  // Remove the 'on' class from all buttons
+  // Remove the 'on' and add off class from all buttons
   allFilterButton.classList.remove("on");
+  allFilterButton.classList.add("off");
   activeFilterButton.classList.remove("on");
+  activeFilterButton.classList.add("off");
   completeFilterButton.classList.remove("on");
-
+  completeFilterButton.classList.add("off");
   // Add the 'on' class to the selected button
   selectedButton.classList.add("on");
+  selectedButton.classList.remove("off");
 }
 
 function clearCompleteTask() {

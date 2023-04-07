@@ -28,20 +28,48 @@
         />
       </div>
       <div class="input-container input-container-light">
-        <div class="button"></div>
-        <input class="input input-light hover" placeholder="Add your task" />
+        <div class="input-button"></div>
+        <input class="input input-light hover active" placeholder="Add your task" />
       </div>
       <div class="task-container task-container-light">
         <div class="task-list">
+          <div class="task-item task-item-light">
+            <div class="task-content hover active">
+              <div class="button button-light">
+                <svg
+                  class="check-img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="9"
+                >
+                  <path
+                    fill="none"
+                    stroke="#FFF"
+                    stroke-width="2"
+                    d="M1 4.304L3.696 7l6-6"
+                  ></path>
+                </svg>
+              </div>
+              <span class="task-text task-text-light">Build to-do list</span>
+            </div>
+            <div class="delete hover active">
+              <span class="delete__span delete__light"></span
+              ><span class="delete__span delete__light"></span>
+            </div>
+          </div>
         </div>
         <div class="footer">
           <span class="footer-text text-amount"></span>
           <div class="task-state">
             <span class="footer-text bold filter-all on hover active">All</span>
-            <span class="footer-text bold filter-active hover active">Active</span>
-            <span class="footer-text bold filter-complete hover active">Complete</span>
+            <span class="footer-text bold filter-active off hover active"
+              >Active</span
+            >
+            <span class="footer-text bold filter-complete off hover active"
+              >Complete</span
+            >
           </div>
-          <span class="footer-text clear hover active">Clear Complete</span>
+          <span class="footer-text clear hover active off">Clear Complete</span>
         </div>
       </div>
     </div>

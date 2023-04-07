@@ -26,7 +26,7 @@ body {
   @include mode-style("background-color", $veryDarkBlue);
 }
 
-.button {
+.button, .input-button {
   width: 24px;
   height: 24px;
   display: flex;
@@ -34,9 +34,7 @@ body {
   align-items: center;
   border-radius: 100%;
   border: 1px solid $lightGrayishBlue;
-  background-color: transparent; /* Add this line to set the initial background color */
-  transition: background-color 0.4s ease-in-out; /* Add this line for a smooth background-color transition */
-  
+
   svg {
     opacity: 0;
   }
@@ -67,3 +65,22 @@ body {
   }
 }
 
+.button-dark {
+  &:hover {
+    background: linear-gradient($veryDarkDesaturatedBlue, $veryDarkDesaturatedBlue) padding-box,
+      $checkBackground border-box;
+    border-radius: 100%;
+    border: 1px solid transparent;
+    @include button-animation(border);
+  }
+}
+
+.button-light {
+  &:hover {
+    background: linear-gradient($veryLightGray, $veryLightGray) padding-box,
+      $checkBackground border-box;
+    border-radius: 100%;
+    border: 1px solid transparent;
+    @include button-animation(border);
+  }
+}
